@@ -1,0 +1,1519 @@
+1) package test;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class Student {
+    String name;
+    String USN;
+    String dept;
+    String section;
+    double CGPA;
+
+    public Student(String name, String USN, String dept, String section, double CGPA) {
+        this.name = name;
+        this.USN = USN;
+        this.dept = dept;
+        this.section = section;
+        this.CGPA = CGPA;
+    }
+}
+
+public class StudentManagement {
+    public static void main(String[] args) {
+        // Create ArrayList of Students
+        ArrayList<Student> students = new ArrayList<>();
+
+        // Add some sample students
+        students.add(new Student("John", "USN1", "ISE", "A", 9.0));
+        students.add(new Student("Jane", "USN2", "CSE", "B", 8.7));
+        students.add(new Student("Bob", "USN3", "ISE", "C", 8.9));
+        students.add(new Student("Alice", "USN4", "CSE", "C", 8.3));
+
+        // Search for students with CGPA > 8.5
+        System.out.println("Students with CGPA > 8.5:");
+        for (Student student : students) {
+            if (student.CGPA > 8.5) {
+                System.out.println(student.name + " - CGPA: " + student.CGPA);
+            }
+        }
+
+        // Print student details belonging to 'ISE' department
+        System.out.println("\nStudents belonging to 'ISE' department:");
+        for (Student student : students) {
+            if ("ISE".equals(student.dept)) {
+                System.out.println(student.name + " - Dept: " + student.dept);
+            }
+        }
+
+        // Print students belonging to 'C' section
+        System.out.println("\nStudents belonging to 'C' section:");
+        for (Student student : students) {
+            if ("C".equals(student.section)) {
+                System.out.println(student.name + " - Section: " + student.section);
+            }
+        }
+
+        // Use Iterator to iterate through the list
+        System.out.println("\nIterating through the list using Iterator:");
+        Iterator<Student> iterator = students.iterator();
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            System.out.println(student.name + " - USN: " + student.USN);
+        }
+    }
+}
+
+2) package prg2;
+
+import java.util.*;
+
+class TelephoneSimulator {
+
+     Map<String, String> missedCalls;
+
+    public TelephoneSimulator() {
+        missedCalls = new HashMap<>();
+    }
+
+    public void recordMissedCalls(String phoneNumber, String dailer) {
+        if (dailer == null || dailer.equals("")) {
+            dailer = "privateDailer";
+        }
+        missedCalls.put(phoneNumber, dailer);
+    }
+
+    public  void displayMissedCalls() {
+        if (missedCalls.isEmpty()) {
+            System.out.println("no missed calls");
+        }
+        for (Map.Entry<String, String> entry : missedCalls.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+    }
+
+    public void deleteMissedCalls(int number) {
+        if (number <= 0 || missedCalls.isEmpty()) {
+            System.out.println("no missed calls");
+            return;
+        }
+        int count = 0;
+        for (Map.Entry<String, String> entry : missedCalls.entrySet()) {
+            missedCalls.remove(entry.getKey());
+            count++;
+
+            if (count >= number) {
+                break;
+            }
+        }
+    }
+
+
+public class Program2 {
+
+    public static void main(String[] args) {
+
+        TelephoneSimulator simulator = new TelephoneSimulator();
+        simulator.recordMissedCalls("8309455634", "jaswanth");
+        simulator.recordMissedCalls("1123456789", "pranay");
+        simulator.recordMissedCalls("9490136745", "ramu");
+        simulator.recordMissedCalls("8118248974", "");
+
+        System.out.println(" missed calls");
+        simulator.displayMissedCalls();
+        System.out.println("delete missed calls");
+        
+        simulator.deleteMissedCalls(2);
+        System.out.println(" missed calls");
+        simulator.displayMissedCalls();
+    }
+
+}
+
+3) package pr3;
+import java.util.*;
+
+class Book {
+
+  
+ int bookId;
+     String title;
+    String author;
+     String publisher;
+    private double price;
+
+    public Book(int bookId,String title, String author, String publisher, double price) {
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.price = price;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "bookId=" + bookId + '\n'
+                + "title='" + title + '\n'
+                + "author='" + author + '\n'
+                + "publisher='" + publisher + '\n'
+                + "price=" + price + '\n';
+    }
+}
+
+public class Program3 {
+
+    public static void main(String[] args) {
+        ArrayList<Book> bookList = new ArrayList<>();
+        Book book1 = new Book(1,"Java", "Shashidhar", "McGraw", 255.5);
+        Book book2 = new Book(2,"Spring Security", "Chad Darby", "McGraw", 499.99);
+        Book book3 = new Book(3,"Spring MVC", "Chad Darby", "McGraw", 1299.9);
+        Book book4 = new Book(4,"OCJP", "Martin Lara", "McGraw", 255.5);
+
+        bookList.add(book1);
+        bookList.add(book2);
+        bookList.add(book3);
+        bookList.add(book4);
+
+        // Sorting books by price in ascending order
+        Collections.sort(bookList, (bookA, bookB) -> Double.compare(bookA.getPrice(), bookB.getPrice()));
+
+        System.out.println("Sorted Books by Price:");
+        for (Book book : bookList) {
+            System.out.println(book);
+        }
+
+        // Prompt for an author name ,list all books with the author's name
+        String authorToSearch = "Chad Darby";
+        for (Book book : bookList) {
+            if (book.getAuthor().equals(authorToSearch)) {
+                System.out.println(book);
+            }
+        }
+
+        // Create a new list with books above a user-specified price
+        double userSpecifiedPrice = 300.0;
+        List<Book> expensiveBooks = new ArrayList<>();
+        for (Book book : bookList) {
+            if (book.getPrice() > userSpecifiedPrice) {
+                expensiveBooks.add(book);
+            }
+        }
+        //displaying expensve books
+        for (Book book : expensiveBooks) {
+            System.out.println(book);
+        }
+    }
+}
+
+4) package pr4;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import java.util.*;
+
+class Student {
+	String name;
+	String usn;
+	int age;
+	String address;
+
+	public Student(String name, String usn, int age, String address) {
+		super();
+		this.name = name;
+		this.usn = usn;
+		this.age = age;
+		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", usn=" + usn + ", age=" + age + ", address=" + address + "]";
+	}
+
+}
+
+public class Program4 implements ActionListener {
+
+	int i = 1;
+
+	Map<Integer, Student> map = new HashMap<>();
+
+	JFrame jf = new JFrame("student information portal");
+
+	JButton jb1 = new JButton("store");
+	JButton jb2 = new JButton("compute");
+	JButton jb3 = new JButton("display");
+
+	JLabel jlb1 = new JLabel("name : ");
+	JTextField jtf1 = new JTextField(10);
+
+	JLabel jlb2 = new JLabel("usn : ");
+	JTextField jtf2 = new JTextField("", 10);
+
+	JLabel jlb3 = new JLabel("age : ");
+	JTextField jtf3 = new JTextField("", 10);
+
+	JLabel jlb4 = new JLabel("address : ");
+	JTextField jtf4 = new JTextField("", 10);
+
+	JLabel jlb5 = new JLabel("sem 1 sgpa : ");
+	JTextField jtf5 = new JTextField("", 10);
+
+	JLabel jlb6 = new JLabel("sem 2 sgpa : ");
+	JTextField jtf6 = new JTextField("", 10);
+
+	JLabel jlb7 = new JLabel("sem 3 sgpa : ");
+	JTextField jtf7 = new JTextField("", 10);
+
+	JLabel jlb8 = new JLabel("sem 4 sgpa : ");
+	JTextField jtf8 = new JTextField("", 10);
+
+	Program4() {
+		jf.add(jlb1);
+		jf.add(jtf1);
+		jf.add(jlb2);
+		jf.add(jtf2);
+		jf.add(jlb3);
+		jf.add(jtf3);
+		jf.add(jlb4);
+		jf.add(jtf4);
+		jf.add(jlb5);
+		jf.add(jtf5);
+		jf.add(jlb6);
+		jf.add(jtf6);
+		jf.add(jlb7);
+		jf.add(jtf7);
+		jf.add(jlb8);
+		jf.add(jtf8);
+
+		jf.add(jb1);
+		jf.add(jb2);
+		jf.add(jb3);
+
+		jf.setSize(800, 100);
+		jf.setLayout(new FlowLayout());
+
+		jf.setVisible(true);
+
+		jb1.addActionListener(this);
+		jb2.addActionListener(this);
+		jb3.addActionListener(this);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// to store students info into map
+		if (e.getSource() == jb1) {
+			String name = jtf1.getText();
+			String usn = jtf2.getText();
+			String oldAge = jtf3.getText();
+			int newAge = Integer.parseInt(oldAge);
+			String address = jtf4.getText();
+
+			map.put(i, new Student(name, usn, newAge, address));
+			i++;
+			JOptionPane.showMessageDialog(jf, "student values entered");
+
+		}
+
+		// to display student details in messagepane
+		if (e.getSource() == jb3) {
+			StringBuilder sb = new StringBuilder();
+			for (Map.Entry<Integer, Student> en : map.entrySet()) {
+				sb.append(en);
+			}
+			JOptionPane.showMessageDialog(jf, sb.toString() + "\n");
+			
+		}
+		
+		// cgpa and stuff
+		if(e.getSource()== jb2) {
+			
+			String oldAge=jtf3.getText();
+			int newAge=Integer.parseInt(oldAge);
+			if(newAge < 18 || newAge>=30) {
+				JOptionPane.showMessageDialog(jf, "invalid age , please enter correct age");
+			}
+
+			double sgp1=Double.parseDouble(jtf5.getText());
+			double sgp2=Double.parseDouble(jtf6.getText());
+			double sgp3=Double.parseDouble(jtf7.getText());
+			double sgp4=Double.parseDouble(jtf8.getText());
+			
+			if(sgp1 >10 || sgp2>10 || sgp3>10 || sgp4>10) {
+				JOptionPane.showMessageDialog(jf," enter valid sgpa");
+			}
+			
+			double cgpa=(sgp1+sgp2+sgp3+sgp4)/4;
+			
+			JOptionPane.showMessageDialog(jf,"cgpa : "+cgpa);
+			
+		}
+
+	}
+
+	public static void main(String[] args) {
+		new Program4();
+	}
+
+} 
+
+
+5) import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+public class MARKET implements ActionListener {
+    JLabel label1 = new JLabel("Customer Phone:");
+    JTextField phone = new JTextField(20);
+    JLabel label2 = new JLabel("Enter customer id");
+    JTextField cid = new JTextField(10);
+    JButton check = new JButton("Check cid:");
+    JLabel label3 = new JLabel("#1 APPLE 150Rs/kg #2 Orange 60Rs/kg");
+    JLabel label4 = new JLabel("Enter the item you wish to purchase");
+    JTextField item_no = new JTextField(5);
+    JLabel label5 = new JLabel("Quantity kg ");
+    JTextField kg = new JTextField(5);
+    JRadioButton rb1 = new JRadioButton("Discount 30%");
+    JButton Bill = new JButton("Bill");
+    JTextField am = new JTextField(20);
+    
+    HashMap<Integer, Double> item = new HashMap<Integer, Double>();
+
+    
+
+    void add_item() {
+        item.put(1, 150.0);
+        item.put(2, 60.0);
+    }
+
+    MARKET() {
+        JFrame f1 = new JFrame("CUSTOMER INFORMATION");
+        String uname = JOptionPane.showInputDialog(null, "Enter USERNAME:");
+        String psw = JOptionPane.showInputDialog(null, "Enter Password:");
+       
+        add_item();
+        if (uname != null && psw != null && uname.equals("msrit123") && psw.equals("ise123")) {
+            JOptionPane.showMessageDialog(null, "LOGIN VALID");
+            f1.setSize(400, 200);
+            f1.setVisible(true);
+            f1.setLayout(new FlowLayout());
+            f1.add(label1);
+            f1.add(phone);
+            f1.add(check);
+            f1.add(label2);
+            f1.add(cid);
+            check.addActionListener(this);
+            f1.add(label3);
+            f1.add(label4);
+            f1.add(item_no);
+            f1.add(label5);
+            f1.add(kg);
+            f1.add(rb1);
+            f1.add(Bill);
+            Bill.addActionListener(this);
+            f1.add(am);
+        } else {
+            JOptionPane.showMessageDialog(null, "LOGIN INVALID");
+        }
+    }
+
+    public static void main(String[] args) {
+        MARKET ob = new MARKET();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == check) {
+            String p1 = phone.getText();
+            if (hm.containsKey(p1)) {
+                JOptionPane.showMessageDialog(null, "UR OLD CUSTOMER ID: " + hm.get(p1));
+                cid.setText(Integer.toString(hm.get(p1)));
+            } else {
+                int newCustomerId = 124;
+                hm.put(p1, newCustomerId);
+                JOptionPane.showMessageDialog(null, "NEW CUSTOMER, NEW ID: " + newCustomerId);
+                cid.setText(Integer.toString(newCustomerId));
+            }
+        } else if (e.getSource() == Bill) {
+            try {
+                int selectedItem = Integer.parseInt(item_no.getText());
+                double itemPrice = item.get(selectedItem);
+                double quantity = Double.parseDouble(kg.getText());
+                double totalCost = itemPrice * quantity;
+
+                if (rb1.isSelected()) {
+                    // Apply discount if selected
+                    totalCost *= 0.7; // 30% discount
+                }
+
+                am.setText("Total Cost: " + totalCost);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid input for item number or quantity.");
+            }
+        }
+    }
+}
+
+6) package pr6;
+
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import javax.swing.*;
+
+class Employee {
+
+    String empName;
+    int empAge;
+    int noOfFamilyMembers;
+    String address;
+
+    public Employee(String empName, int empAge, int noOfFamilyMembers, String address) {
+        super();
+        this.empName = empName;
+        this.empAge = empAge;
+        this.noOfFamilyMembers = noOfFamilyMembers;
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [empName=" + empName + ", empAge=" + empAge + ", noOfFamilyMembers=" + noOfFamilyMembers
+                + ", address=" + address + "]";
+    }
+
+}
+
+public class Program6 implements ActionListener {
+
+    List<Employee> empList = new ArrayList<>();
+
+    JFrame jf = new JFrame("employee details taker");
+
+    JButton jbtn = new JButton("store");
+
+    JLabel jlb1 = new JLabel("name : ");
+    JTextField jtf1 = new JTextField("", 20);
+
+    JLabel jlb2 = new JLabel("age : ");
+    JTextField jtf2 = new JTextField("", 20);
+
+    JLabel jlb3 = new JLabel("address : ");
+    JTextField jtf3 = new JTextField("", 20);
+
+    JLabel jlb4 = new JLabel("size : ");
+    JTextField jtf4 = new JTextField("", 20);
+
+    JLabel jlb5 = new JLabel("pay scale : ");
+    JComboBox<String> jcmb1 = new JComboBox<>(new String[]{"100000", "200000", "300000", "400000"});
+
+    JLabel jlb6 = new JLabel("gender : ");
+    JComboBox<String> jcmb2 = new JComboBox<>(new String[]{"male", "female", "other"});
+
+    Program6() {
+
+        jf.add(jlb1);
+        jf.add(jtf1);
+        jf.add(jlb2);
+        jf.add(jtf2);
+        jf.add(jlb3);
+        jf.add(jtf3);
+        jf.add(jlb4);
+        jf.add(jtf4);
+        jf.add(jlb5);
+        jf.add(jcmb1);
+        jf.add(jlb6);
+        jf.add(jcmb2);
+
+        jf.add(jbtn);
+
+        jf.setSize(500, 300);
+        jf.setLayout(new FlowLayout());
+
+        jf.setVisible(true);
+
+        jbtn.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == jbtn) {
+            String employeeName = jtf1.getText();
+            String age = jtf2.getText();
+            int employeeAge = Integer.parseInt(age);
+            String employeeAddress = jtf3.getText();
+            String size = jtf4.getText();
+            int employeeFamilysize = Integer.parseInt(size);
+
+            String payment = (String) jcmb1.getSelectedItem();
+            double empPmt = Double.parseDouble(payment);
+
+            String gender = (String) jcmb2.getSelectedItem();
+
+            if (employeeAge > 22 && employeeAge < 60) {
+
+                empList.add(new Employee(employeeName, employeeAge, employeeFamilysize, employeeAddress));
+            } else {
+                JOptionPane.showMessageDialog(jf, "please enter valid age for faculty");
+            }
+
+            for (Employee emp : empList) {
+                JOptionPane.showMessageDialog(jf, emp + " " + payment + " " + gender);
+            }
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+        new Program6();
+    }
+
+}
+
+7)  package prg7;
+//add jar file my sql connector to build path and change url  , name and password of your databses accordingly
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+import javax.swing.*;
+
+public class Program7 implements ActionListener {
+
+	JFrame jf = new JFrame("login page");
+
+	JLabel jlb1 = new JLabel("login id : ");
+	JTextField jtf1 = new JTextField( 20);
+
+	JLabel jlb2 = new JLabel("user name : ");
+	JTextField jtf2 = new JTextField("", 20);
+
+	JLabel jlb3 = new JLabel("password : ");
+	JTextField jtf3 = new JTextField("", 20);
+
+	JButton jbtn = new JButton("insert");
+
+	Program7() {
+		jf.add(jlb1);
+		jf.add(jtf1);
+		jf.add(jlb2);
+		jf.add(jtf2);
+		jf.add(jlb3);
+		jf.add(jtf3);
+
+		jf.add(jbtn);
+		jf.setSize(500, 500);
+
+		jf.setLayout(new GridLayout(0, 2));
+
+	jf.setVisible(true);
+
+		jbtn.addActionListener(this);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+			if(e.getSource()==jbtn) {
+		String id = jtf1.getText();
+		String name = jtf2.getText();
+		String password = jtf3.getText();
+
+		Connection myConnection = null;
+		PreparedStatement myStatement = null;
+		ResultSet myResult = null;
+
+		String dburl = "jdbc:mysql://localhost:3306/loginDb";
+		String username = "root";
+		String pasword = "ritesh";
+		try {
+			myConnection = DriverManager.getConnection(dburl, username, pasword);
+			myStatement = myConnection.prepareStatement("insert into login values (?,?,?)");
+			myStatement.setString(1, id);
+			myStatement.setString(2, name);
+			myStatement.setString(3, password);
+
+			int numberOfRowsEffected = myStatement.executeUpdate();
+			if (numberOfRowsEffected > 0) {
+				JOptionPane.showMessageDialog(jf, "inserted succesfully");
+			} else {
+				JOptionPane.showMessageDialog(jf, "insert carefully");
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}}
+
+	public static void main(String[] args) {
+		new Program7();
+
+	}
+}
+//
+CREATE TABLE login (
+    id VARCHAR(50),
+    name VARCHAR(50),
+    password VARCHAR(50)
+);
+//
+
+8) package prg8;
+		import java.awt.*;
+		import java.awt.event.*;
+		import java.sql.*;
+		import javax.swing.*;
+
+		public class Program8 extends JFrame implements ActionListener {
+		    JLabel label1 = new JLabel("Representative no:");
+		    JTextField repNo = new JTextField(10);
+		    JLabel label2 = new JLabel("Representative name:");
+		    JTextField repName = new JTextField(10);
+		    JLabel label3 = new JLabel("Representative state:");
+		    JTextField repState = new JTextField(10);
+		    JLabel label4 = new JLabel("Representative com:");
+		    JTextField repCom = new JTextField(10);
+
+		    JLabel label5 = new JLabel("Customer no:");
+		    JTextField custNo = new JTextField(10);
+		    JLabel label6 = new JLabel("Customer name:");
+		    JTextField custName = new JTextField(10);
+		    JLabel label7 = new JLabel("Customer state:");
+		    JTextField custState = new JTextField(10);
+		    JLabel label8 = new JLabel("Customer rep:");
+		    JTextField custRep = new JTextField(10);
+
+		    JLabel label9 = new JLabel("Enter State:");
+		    JTextField enterState = new JTextField(10);
+
+		    JButton insertRep = new JButton("Insert Representative");
+		    JButton insertCust = new JButton("Insert Customer");
+		    JButton displayState = new JButton("Display by state");
+
+		    JTextArea displayArea = new JTextArea();
+		    Connection conn = connectDb();
+
+		    public Program8(String title) {
+		        super(title);
+		        setLayout(new GridLayout(2, 10));
+		        setVisible(true);
+
+		        add(label1);
+		        add(repNo);
+		        add(label2);
+		        add(repName);
+		        add(label3);
+		        add(repState);
+		        add(label4);
+		        add(repCom);
+		        add(label5);
+		        add(custNo);
+		        add(label6);
+		        add(custName);
+		        add(label7);
+		        add(custState);
+		        add(label8);
+		        add(custRep);
+		        add(label9);
+		        add(enterState);
+		        add(insertRep);
+		        add(insertCust);
+		        add(displayState);
+		        add(displayArea);
+
+		        insertRep.addActionListener(this);
+		        insertCust.addActionListener(this);
+		        displayState.addActionListener(this);
+		    }
+
+		    private Connection connectDb() {
+		        Connection conn = null;
+		        try {
+		            String url = "jdbc:mysql://localhost:3306/repCust";
+		            String root = "root";
+		            String pass = "ritesh";
+		            conn = DriverManager.getConnection(url, root, pass);
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		        return conn;
+		    }
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        if (e.getSource() == insertRep) {
+		            insertRepresentative(conn, repNo.getText(), repName.getText(), repState.getText(), repCom.getText());
+		        } else if (e.getSource() == insertCust) {
+		            insertCustomer(conn, custNo.getText(), custName.getText(), custState.getText(), custRep.getText());
+		        } else if (e.getSource() == displayState) {
+		            displayState(conn, custState.getText(), repState.getText(), enterState.getText());
+		        }
+		    }
+
+		    private void displayState(Connection c, String custState, String repState, String enteredState) {
+		        String displayQuery = "SELECT * FROM customer WHERE custState = ? UNION SELECT * FROM representative WHERE repState = ?";
+		        try {
+		            PreparedStatement ps = conn.prepareStatement(displayQuery);
+		            ps.setString(1, enteredState);
+		            ps.setString(2, enteredState);
+		            ResultSet rs = ps.executeQuery();
+		            displayArea.setText("");
+		            while (rs.next()) {
+		                String info = "ID: " + rs.getString("custNo") + ", Name: " + rs.getString("custName") +
+		                        ", State: " + rs.getString("custState") + ", RepNo: " + rs.getString("custRep") + "\n";
+		                displayArea.append(info);
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		
+		private void insertCustomer(Connection c, String custNo, String custName, String custState, String custRep) {
+		        String insertQuery = "INSERT INTO customer(custNo,custName,custState,custRep) VALUES(?,?,?,?)";
+		        try {
+		            PreparedStatement ps = conn.prepareStatement(insertQuery);
+		            ps.setString(1, custNo);
+		            ps.setString(2, custName);
+		            ps.setString(3, custState);
+		            ps.setString(4, custRep);
+		            int rowsAffect = ps.executeUpdate();
+		            if (rowsAffect > 0) {
+		                JOptionPane.showMessageDialog(this, "Insertion successful");
+		            } else {
+		                JOptionPane.showMessageDialog(this, "Insertion unsuccessful");
+		            }
+
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    private void insertRepresentative(Connection conn, String repNo, String repName, String repState, String Commis) {
+		        String insertQuery = "INSERT INTO representative(repNo,repName,repState,Commis) VALUES(?,?,?,?)";
+		        try {
+		            PreparedStatement ps = conn.prepareStatement(insertQuery);
+		            ps.setString(1, repNo);
+		            ps.setString(2, repName);
+		            ps.setString(3, repState);
+		            ps.setString(4, Commis);
+
+		            int rowsAffect = ps.executeUpdate();
+		            if (rowsAffect > 0) {
+		                JOptionPane.showMessageDialog(this, "Insertion successful");
+		            } else {
+		                JOptionPane.showMessageDialog(this, "Insertion unsuccessful");
+		            }
+
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    public static void main(String[] args) {
+		        new Program8("Representative Customer Form");
+		    }
+		}
+
+
+Q9) package prg9;
+import java.util.*;
+
+class Book {
+	String title;
+	String author;
+	String publisher;
+	double price;
+
+	public Book(String title, String author, String publisher, double price) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [title=" + title + ", author=" + author + ", publisher=" + publisher + ", price=" + price + "]";
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+}
+
+public class Program9 {
+
+	public static void main(String[] args) {
+
+		Map<Integer, Book> bookMap = new HashMap<>();
+		Scanner sc = new Scanner(System.in);
+
+		Book book1 = new Book("java", "shahidhar", "mc graw hill", 1299);
+		Book book2 = new Book("spring", "chaddarby", "mc graw hill", 499);
+		Book book3 = new Book("java", "shahidhar", "ramaiah", 1299);
+		Book book4 = new Book("toc", "manishekar", "mc graw hill", 300);
+
+		bookMap.put(1, book1);
+		bookMap.put(2, book2);
+		bookMap.put(3, book3);
+		bookMap.put(4,book4);
+
+		System.out.println("enter book title");
+		String title = sc.nextLine();
+		for (Map.Entry<Integer, Book> book : bookMap.entrySet()) {
+			if (book.getValue().getTitle().contains(title)) {
+				System.out.println(book.getValue());
+			}
+		}
+
+		System.out.println("enter publisher name");
+		String publisher = sc.nextLine();
+		for (Map.Entry<Integer, Book> book : bookMap.entrySet()) {
+			if (book.getValue().getPublisher().contains(publisher)) {
+				System.out.println(book.getValue());
+			}
+		}
+
+		System.out.println("enter new publisher name");
+		String newPublisher = sc.nextLine();
+		System.out.println("enter tttle to be updated for given publisher");
+		String newTitle = sc.nextLine();
+		for (Map.Entry<Integer, Book> book : bookMap.entrySet()) {
+			if (book.getValue().getPublisher().contains(newPublisher)) {
+				book.getValue().setTitle(newTitle);
+				System.out.println(book);
+			}
+		}
+
+	}
+
+}
+
+
+q10)  package prg10;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+
+public class PatientMedicineApp extends JFrame implements ActionListener {
+
+    JTextField patientNameTF, medicineTypeTF, treatmentTF,descriptionTF;
+    JButton patientSubmitBtn, medicineSubmitBtn, searchByMedicineBtn;
+    JTextArea patientDetailsTextArea;
+
+    Connection connection;
+
+    public PatientMedicineApp() {
+        // Create Swing components
+        patientNameTF = new JTextField(20);
+        medicineTypeTF = new JTextField(20);
+        descriptionTF =new JTextField(30);
+        treatmentTF = new JTextField(20);
+        patientSubmitBtn = new JButton("Submit Patient");
+        medicineSubmitBtn = new JButton("Submit Medicine");
+        searchByMedicineBtn = new JButton("Search by Medicine");
+        patientDetailsTextArea = new JTextArea();
+
+        patientSubmitBtn.addActionListener(this);
+        medicineSubmitBtn.addActionListener(this);
+        searchByMedicineBtn.addActionListener(this);
+
+        setLayout(new FlowLayout());
+
+        add(new JLabel("Patient Name:"));
+        add(patientNameTF);
+        add(new JLabel("Medicine Type:"));
+        add(medicineTypeTF);
+        add(new JLabel("Treatment:"));
+        add(treatmentTF);
+        add(patientSubmitBtn);
+        add(medicineSubmitBtn);
+        add(searchByMedicineBtn);
+        add(patientDetailsTextArea);
+
+        setSize(400, 300);
+        
+        setVisible(true);
+
+        connectToDB();
+    }
+
+    public void connectToDB() {
+        try {
+           // Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/prg10";
+            String username = "root";
+            String password = "ritesh";
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == patientSubmitBtn) {
+            insertPatient();
+        } else if (e.getSource() == medicineSubmitBtn) {
+            insertMedicine();
+        } else if (e.getSource() == searchByMedicineBtn) {
+        	fetchPatientDetailsByMedicine();
+        }
+    }
+
+    
+
+    public void fetchPatientDetailsByMedicine() {
+    	 String medicineType = medicineTypeTF.getText();
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Patient WHERE MedicineType = ?");
+            ps.setString(1, medicineType);
+            ResultSet rs = ps.executeQuery();
+
+            patientDetailsTextArea.setText("");
+            while (rs.next()) {
+                patientDetailsTextArea.append("Patient ID: " + rs.getInt("PatientID") +
+                        ", Name: " + rs.getString("PatientName") +
+                        ", Medicine Type: " + rs.getString("medicineType") +
+                        ", Treatment: " + rs.getString("Treatment") + "\n");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void insertPatient() {
+        String patientName = patientNameTF.getText();
+        String medicineType = medicineTypeTF.getText();
+        String treatment = treatmentTF.getText();
+        
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Patient (PatientName, MedicineType, Treatment) VALUES (?, ?, ?)");
+            ps.setString(1, patientName);
+            ps.setString(2, medicineType);
+            ps.setString(3, treatment);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Patient information inserted successfully!");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void insertMedicine() {
+    	String medicineType = medicineTypeTF.getText();
+    	String description = descriptionTF.getText();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Medicine (MedicineType, Description) VALUES (?, ?)");
+            ps.setString(1, medicineType);
+            ps.setString(2, description); 
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Medicine information inserted successfully!");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        new PatientMedicineApp();
+    }
+}
+
+
+-- Create Patient table
+CREATE TABLE Patient (
+    PatientID INT PRIMARY KEY AUTO_INCREMENT,
+    PatientName VARCHAR(255) NOT NULL,
+    MedicineType VARCHAR(255) NOT NULL,
+    Treatment VARCHAR(255) NOT NULL
+);
+
+-- Create Medicine table
+CREATE TABLE Medicine (
+    MedicineID INT PRIMARY KEY AUTO_INCREMENT,
+    MedicineType VARCHAR(255) NOT NULL,
+    Description TEXT
+);
+
+
+
+11) // Servlet part - pr11.java
+
+    package servlet;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.*;
+
+/**
+ * Servlet implementation class pr11
+ */
+public class pr11 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public pr11() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String name = request.getParameter("name");
+		String salary = request.getParameter("salary");
+		String tax = request.getParameter("tax");
+		
+		PrintWriter pw = response.getWriter();
+		File f = new File("./record.txt");
+		
+		FileOutputStream fout = new FileOutputStream(f);
+		fout.write(("[ Name: " + name + ", Salary: " + salary + ", Tax: " + tax + " ]\n").getBytes());
+		fout.close();
+		
+		pw.println("added");
+		pw.close();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+//html part-index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<form action = "pr11" method = "get">
+		<label>Name</label>
+		<input type = "text" name="name">
+		<label>Salary</label>
+		<input type = "text" name = "salary">
+		<label>Tax</label>
+		<input type = "text" name = "tax">
+		
+		<input type = "submit">
+	</form>
+
+</body>
+</html>
+
+
+
+12)  Server.jsp 
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import = "java.sql.*" %>
+<%@page import = "java.io.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	String fname = request.getParameter("fname");
+	String lname = request.getParameter("lname");
+	String age = request.getParameter("age");
+	String city = request.getParameter("city");
+	String email = request.getParameter("email");
+	
+	String db = "jdbc:mysql://localhost:3306/prg12";
+	String dbUser = "root";
+	String dbPwd = "ritesh";
+	
+	Connection conn = DriverManager.getConnection(db, dbUser, dbPwd);
+	
+	PreparedStatement query = conn.prepareStatement("insert into personal values(?,?,?,?,?);");
+	
+	query.setString(1, fname);
+	query.setString(2, lname);
+	query.setString(3, age);
+	query.setString(4, city);
+	query.setString(5, email);
+	
+	query.executeUpdate();
+	
+	PrintWriter pw = response.getWriter();
+	
+	pw.println("added");
+	
+	%>
+</body>
+</html>
+
+//index.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action = "Server.jsp">
+	<label>First Name: </label>
+	<input type="text" name="fname"> <br>
+	
+	<label>Last Name: </label> 
+	<input type="text" name="lname"> <br>
+	
+	<label>Age: </label> 
+	<input type="text" name="age"> <br>
+	
+	<label>City: </label> 
+	<input type="text" name = "city"> <br>
+	
+	<label>Email: </label> 
+	<input type="email" name="email"> <br>
+	
+	<input type="submit">
+	</form>
+</body>
+</html>
+
+
+
+13)  //server.java
+ 
+ package prg13;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.sql.*;
+
+/**
+ * Servlet implementation class server
+ */
+public class server extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public server() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String age = request.getParameter("age");
+		String dateOfAdm = request.getParameter("date");
+		String doctor = request.getParameter("doctor");
+		String cause = request.getParameter("cause");
+		String treatment = request.getParameter("treatment");
+		
+		String db = "jdbc:mysql://localhost:3306/pgm13";
+		String dbUser = "root";
+		String dbPwd = "ritesh";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection(db, dbUser, dbPwd);
+		PreparedStatement query = conn.prepareStatement("insert into patient1 values(?,?,?,?,?,?,?)");
+		
+		query.setString(1, id);
+		query.setString(2, name);
+		query.setString(3, age);
+		query.setString(4, dateOfAdm);
+		query.setString(5, doctor);
+		query.setString(6, cause);
+		query.setString(7, treatment);
+		
+		
+		int noOfRows = query.executeUpdate();
+		if (noOfRows > 0) {
+			System.out.println("entered");
+		}
+		
+		
+		PreparedStatement fetch = conn.prepareStatement("select * from patient1");
+		
+		
+		ResultSet rs = fetch.executeQuery();
+		while(rs.next()) {
+			System.out.println("id : "+rs.getString(1)+"name : "+rs.getString(2));
+		}
+		
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+  //index.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="server" >
+	<label>Patient Id:</label> <input type="text" name="id"> <br>
+	<label>Patient Name</label> <input type="text" name="name"> <br>
+	<label>Age</label> <input type="text" name="age"> <br>
+	<label>Date of admission</label> <input type="text" name="date"> <br>
+	<label>Cause</label> <input type="text" name="cause"> <br>
+	<label>Doctor</label> <input type="text" name="doctor"> <br>
+	<label>Treatment</label> <input type="text" name="treatment"> <br>
+	
+	<input type="submit">
+	
+	</form>
+</body>
+</html>
+
+      
+14) //server.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+     <%@page import = "java.io.*" %>
+ <%@page import = "java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+	String accessories = request.getParameter("accessories");
+	String tagline = request.getParameter("tagline");
+	String pocket = request.getParameter("pocket");
+	String color = request.getParameter("color");
+	
+	PrintWriter pw = response.getWriter();
+	String db = "jdbc:mysql://localhost:3306/pgm14";
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection conn = DriverManager.getConnection(db, "root", "ritesh");
+	
+	PreparedStatement query = conn.prepareStatement("insert into orders" + 
+			  "(accessories, tagline, pocket, color) values(?,?,?,?)");
+	
+	query.setString(1, accessories);
+	query.setString(2, tagline);
+	query.setString(3, pocket);
+	query.setString(4, color);
+	
+	query.execute();
+	
+	PreparedStatement fetch = conn.prepareStatement("select * from orders");
+	
+	ResultSet rs = fetch.executeQuery();
+	
+	pw.println("<table>");
+	pw.println("<tr><th>Order id</th> <th>Accessories</th> <th>Tagline</th> <th>Pocket</th> <th>Color</th> </tr>");
+	
+	while(rs.next()) {
+		int id = Integer.parseInt(rs.getString(1));
+		String a = rs.getString(2);
+		String t = rs.getString(3);
+		String p = rs.getString(4);
+		String c = rs.getString(5);
+		
+		pw.println("<tr><td>" +id + "</td><td>" + a + "</td><td>" + t + "</td><td>" + p + 
+				"</td><td>" + c + "</td></tr>");
+		
+	}
+	%>
+</body>
+</html>
+
+//index.jsp 
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Order</title>
+</head>
+<body>
+<h1>Online TShirt Order</h1>
+	<form action="Server.jsp">
+		<label>Choose accessories </label>
+		<label><input type = 'checkbox' name = "accessories" value='cap'>Cap</label>
+		<label><input type = 'checkbox' name = "accessories" value='belt'>Belt</label>
+		<label><input type = 'checkbox' name = "accessories" value='hairband'>Hair Band</label>
+		<br><br>
+		
+		<label>TagLine</label>
+		<input name="tagline" type = "text"> <br><br>
+		
+		<label>Pocket</label>
+		<label><input type='radio' name='pocket' value="yes">Yes</label>
+		<label><input type='radio' name='pocket' value="no">No</label>
+		
+		<br><br>
+		
+		<label>Choose color</label>
+		<select name="color">
+		<option value='red'>Red</option>
+		<option value='blue'>Blue</option>
+		<option value='white'>White</option>
+		</select>
+		
+		<br><br>
+		<input type="submit" value="click me">
+	</form>
+
+</body>
+</html>
+
+create database pgm14;
+use pgm14;
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    accessories VARCHAR(10),
+    tagline varchar(200),
+    pocket varchar(20),
+    color varchar(20)
+) AUTO_INCREMENT = 100;
+
+
+
+
